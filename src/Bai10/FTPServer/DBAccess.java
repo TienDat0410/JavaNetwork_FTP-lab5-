@@ -1,9 +1,9 @@
-package Bai10;
+package Bai10.FTPServer;
 
-
-import bai6.*;
+;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /*
@@ -26,7 +26,7 @@ public class DBAccess {
             MyConnection mycon = new MyConnection();
             con = mycon.getConnection();
             stmt = con.createStatement();
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
     }
 
@@ -34,7 +34,7 @@ public class DBAccess {
         try {
             int i = stmt.executeUpdate(str);
             return i;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return -1;
         }
     }
@@ -43,7 +43,7 @@ public class DBAccess {
         try {
             ResultSet rs = stmt.executeQuery(srt);
             return rs;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return null;
         }
     }

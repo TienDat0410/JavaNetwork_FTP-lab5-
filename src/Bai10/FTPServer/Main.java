@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Bai10;
-
-import bai6.*;
+package Bai10.FTPServer;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;

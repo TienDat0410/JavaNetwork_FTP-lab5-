@@ -254,14 +254,7 @@ public class frmClient extends javax.swing.JFrame {
                 //lay du lieu tu form do su dung go vao
                 String user = this.txtUser.getText();
                 String pass = this.txtpassword.getText();
-                DBAccess acc = new DBAccess();
-                /*
-                //
-                if (rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Đăng nhập thất bại! ");
-                }*/
+                DBAccess acc = new DBAccess();            
                 String cmd = "DANGNHAP";
                 out.println(cmd);
                 out.println(user);

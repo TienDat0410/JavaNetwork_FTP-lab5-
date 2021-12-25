@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/LTmangmaytinh/Lab5/src/Bai10/FTPClient/frmlogin.java</file>
+            <file>file:/D:/LTmangmaytinh/Lab5/src/Bai10/frmClient.java</file>
+            <file>file:/D:/LTmangmaytinh/Lab5/src/Bai10/FTPServer/fptServer.java</file>
+            <file>file:/D:/LTmangmaytinh/Lab5/src/Bai10/FTPClient/frmHienThi.java</file>
+            <file>file:/D:/LTmangmaytinh/Lab5/src/Bai10/FTPClient/frmFTPClient.java</file>
+            <file>file:/D:/LTmangmaytinh/Lab5/src/Bai10/FTPServer/Main.java</file>
+            <file>file:/D:/LTmangmaytinh/Lab5/src/Bai10/FTPServer/frmDangKyUser.java</file>
+            <file>file:/D:/LTmangmaytinh/Lab5/src/Bai10/FTPServer/frmHienThi_server.java</file>
+            <file>file:/D:/LTmangmaytinh/Lab5/src/Bai10/FTPServer/MyConnection.java</file>
+            <file>file:/D:/LTmangmaytinh/Lab5/src/Bai10/FTPServer/frmFTPAdmin.java</file>
+            <file>file:/D:/LTmangmaytinh/Lab5/src/Bai10/FTPServer/ServerThread.java</file>
+        </group>
     </open-files>
 </project-private>
