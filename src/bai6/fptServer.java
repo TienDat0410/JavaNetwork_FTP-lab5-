@@ -39,7 +39,7 @@ public class fptServer {
         }
         return KHONGLALENH;
     }
-    public static final int PORT = 8888;
+    public static final int PORT = 1234;
     public static void main(String[] args) throws IOException {        
         //String path = "C://";
         String path= null;

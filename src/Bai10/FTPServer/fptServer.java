@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  * @author TienDat
  */
 public class fptServer {
-    static final int PORT=8888; 
+    static final int PORT=1234; 
        private ServerSocket server = null;
        public fptServer(){
            try {

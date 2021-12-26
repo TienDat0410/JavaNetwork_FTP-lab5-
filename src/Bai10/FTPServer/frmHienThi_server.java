@@ -41,7 +41,7 @@ public class frmHienThi_server extends javax.swing.JFrame {
                 String user = rs.getString("username");
                 String pass = rs.getString("password");
                 String path = rs.getString("Duongdan");
-                int per = rs.getInt("quyen");
+                int per = rs.getInt("Quyentruyxuat");
                 row = new Vector();
                 row.add(user);
                 row.add(pass);

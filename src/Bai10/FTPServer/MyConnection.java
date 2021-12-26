@@ -16,9 +16,9 @@ public class MyConnection {
     public Connection getConnection(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String URL = "jdbc:mysql://localhost:3308/qltaikhoan?user=root&password=";      
-
-            Connection con = DriverManager.getConnection(URL);           
+            String URL = "jdbc:mysql://localhost:3306/qltaikhoan?user=root&password=";      
+            Connection con = DriverManager.getConnection(URL);   
+            JOptionPane.showMessageDialog(null, "kết nối dữ liệu thành công!");
             return con;
         }
         catch(ClassNotFoundException | SQLException ex){

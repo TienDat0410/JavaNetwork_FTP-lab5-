@@ -30,7 +30,8 @@ public class Main {
                     out.println(filename);
                 }
                 out.flush();
-                System.out.println("da goi client");
+                System.out.println("đã gửi lên client");
+                out.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.toString());
             }

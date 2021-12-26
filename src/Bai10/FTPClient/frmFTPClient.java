@@ -11,7 +11,7 @@ import java.net.Socket;
  * @author TienDat
  */
 public class frmFTPClient extends javax.swing.JFrame {
-    static  final int PORT = 8888;
+    static  final int PORT = 1234;
     static final String HOST="localhost";
     /**
      * Creates new form frmFTPClient

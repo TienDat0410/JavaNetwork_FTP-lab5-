@@ -139,47 +139,30 @@ public class ServerThread implements Runnable {
                         this.traThuMucClient(path, out);
                         break;
                     case DOWNLOAD:
-                        
-                        //lay ten tap tin do client goi len
-                            System.out.println("Da vao lenh download");
-                            String fileNameD = sc.nextLine();
-                            System.out.println("Da lay ten tap tin");
-                            try {
-                                String cpath;
-                                //kiem tra chuoi duong dan co dau / cuoi cung hay ko?
-                                //va gan ten tap tin tu client vao tuong ung
-                                if (path.lastIndexOf("/") >= path.length() - 1) {
-                                    cpath = path + fileNameD;
-                                } else {
-                                    cpath = path + "/" + fileNameD;
-                                }
-                                System.out.println(cpath);
-                                //mo tap tin ra
-                                BufferedInputStream bin;
-                                bin = new BufferedInputStream(new FileInputStream(cpath));
-                                //lap doc noi dung tap tin va goi lieu len server
-                                byte buf[] = new byte[bin.available()];
-                                //tao bo dem doc het du lieu tu tap tin vao bo dem roi day
-                                //vao luong len server.
-                                BufferedOutputStream bout;
-                                bout=new BufferedOutputStream(socket.getOutputStream());
-                                bout.write(bin.read(buf));
-                                System.out.println("da goi du lieu tap tin ve cho client");
-                                bout.flush();
-                                //doi nhan danh sach tap thu cua folder o server voi tinh trang moi
-                                Scanner scRequest = new Scanner(socket.getInputStream());
-                                String cmdRequest = scRequest.nextLine();
-                                System.out.println("da nhan dap tra tu server");
-                                if (cmdRequest.equals("DANHAN")) {
-                                    System.out.println("Đã gửi tệp tin thành công");
-                                }
-                                else{
-                                    System.out.println("Gửi tệp tin thất bại");
-                                }
-                            } catch (Exception e) {
-                                System.out.println(e);
-                            }
-                            break;
+//                        System.out.println("Da vao lenh download");
+//                        rs = acc.Query(data);
+//                        filename = sc.next();
+//                        rs.next();
+//                        path = rs.getString("Duongdan");
+//                        FileInputStream fi = new FileInputStream(path+"/"+filename);                                           
+//                        mybytearray = new byte[1024*32];
+//                        fi.read(mybytearray, 0, mybytearray.length);                                              
+//                        OutputStream os = socket.getOutputStream();                      
+//                        os.write(mybytearray, 0, mybytearray.length);
+                        System.out.println("Da vao lenh download");
+                        rs = acc.Query(data);
+                        filename = sc.next();
+                        rs.next();
+                        path = rs.getString("Duongdan");
+                        f = new File(path + "/" + filename);
+                        out.println(f.length());//truyen do dai file
+                        mybytearray = new byte[(int) f.length()];
+                        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(f));
+                        bis.read(mybytearray, 0, mybytearray.length);
+                        OutputStream os = socket.getOutputStream();
+                        os.write(mybytearray, 0, mybytearray.length);
+                        os.flush();
+                        bis.close();                        
                 }
             }
         } catch (Exception e) {

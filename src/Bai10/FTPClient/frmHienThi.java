@@ -211,7 +211,8 @@ public final class frmHienThi extends javax.swing.JFrame {
                 os.write(mybytearray, 0 , mybytearray.length);
                 os.flush();
                 bis.close();
-                updateFolderServer();
+                loadlist();
+               // updateFolderServer();
                 JOptionPane.showMessageDialog(null, "upload tệp tin lên thành công");
             } catch (Exception e) {
                 try {
@@ -258,38 +259,99 @@ public final class frmHienThi extends javax.swing.JFrame {
 
     private void btndownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndownloadActionPerformed
         // dowload
-        String str = "dowload@" + "select * from taikhoan where username='" +username+ "'@";
-        //lay tap tin can download
-        String fileName = (String) this.listUserFolder.getSelectedValue();
-        System.out.println(fileName);
+        String str = "download@" + "select * from taikhoan where username='" + username + "'@";
+        String filename;
         try {
-            PrintWriter pw = new PrintWriter(socket.getOutputStream());
-            //goi tin hieu lenh
-            pw.println("download");
-            pw.flush();
-            System.out.println("Da goi lenh download len server");
-            pw.println(fileName);
-            pw.flush();
-            //doi server goi noi dung tap tin ve
-            System.out.println("Doi server goi noi dung tap tin ve");
-            String cpath = path + "\\" + fileName;
-            FileOutputStream fout;
-            fout = new FileOutputStream(new File(cpath));
-            BufferedOutputStream bos = new BufferedOutputStream(fout);
-            BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());
-            byte buf[] = new byte[bis.available()];
-            bos.write(bis.read(buf));
+            //Truyền lệnh lên server yêu cầu file
+            filename = listUserFolder.getSelectedValue().toString();
+            str = str + filename;
+            out = new PrintWriter(socket.getOutputStream(), true);
+            out.println(str);
+            //Nhận file từ server về lưu trong path
+            BufferedInputStream bi = new BufferedInputStream(socket.getInputStream());
+            in = new Scanner(bi);
+            int doDaiFile = in.nextInt();//lấy độ dài File
+
+            if (path.equals("")) {
+                this.fileChooserClient.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                if (this.fileChooserClient.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                    path = this.fileChooserClient.getSelectedFile().getCanonicalPath();
+                }
+            }
+
+            int bytesRead;
+            int current = 0;
+            File f = new File(path + "\\" + filename);
+            byte[] mybytearray = new byte[doDaiFile];
+            InputStream is = socket.getInputStream();
+            FileOutputStream fos = new FileOutputStream(f);
+            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            bytesRead = is.read(mybytearray, 0, mybytearray.length);
+            current = bytesRead;
+            while (current != doDaiFile) {
+                bytesRead = is.read(mybytearray, current, mybytearray.length - current);
+                if (bytesRead >= 0) {
+                    current += bytesRead;
+                }
+            }
+            bos.write(mybytearray, 0, current);
             bos.flush();
             bos.close();
-            pw = new PrintWriter(socket.getOutputStream());          
-            pw.flush();
-            JOptionPane.showMessageDialog(null, "Dowload tệp thành công");
-//cap nhat lai thu muc client vua download
-            capNhatClientFolder(cpath);           
-        } catch (Exception ex) {
-            ex.printStackTrace();
-//            JOptionPane.showMessageDialog(null, "Lỗi, có thể bạn chưa đăng nhập");
-        }
+            File dir = new File(path);
+            File dsFile[] = dir.listFiles();
+
+            DefaultListModel dm = new DefaultListModel();
+            for (int i = 0; i < dsFile.length; i++) {
+                String name = dsFile[i].getName();
+                dm.addElement(name);
+            }
+            this.listClientFolder.setModel(dm);
+            listClientFolder.setSelectedIndex(0);
+//        try {
+//            byte[] mybytearray = new byte[1024*32];
+////            //Truyền lệnh lên server yêu cầu file
+//            filename = listUserFolder.getSelectedValue().toString();
+//            str = str + filename;
+//            out = new PrintWriter(socket.getOutputStream(), true);
+//            out.println(str);
+//            //Nhận file từ server về lưu trong path
+//            InputStream is = socket.getInputStream();
+//            FileOutputStream fos = new FileOutputStream(path+"\\"+filename);
+//            is.read(mybytearray, 0, mybytearray.length);
+//            fos.write(mybytearray, 0, mybytearray.length);
+            
+            
+            
+                     
+//            if (path.equals("")) {
+//                this.fileChooserClient.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//                if (this.fileChooserClient.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+//                    path = this.fileChooserClient.getSelectedFile().getCanonicalPath();
+//                }
+//            }
+//           
+//            File dir = new File(path);
+//            File dsFile[] = dir.listFiles();
+//            DefaultListModel dm = new DefaultListModel();
+//            for (int i = 0; i < dsFile.length; i++) {
+//                String name = dsFile[i].getName();
+//                dm.addElement(name);
+//            }
+//            this.listClientFolder.setModel(dm);
+//            listClientFolder.setSelectedIndex(0);
+            JOptionPane.showMessageDialog(null, "Tải file thành công");
+        } catch (Exception e) {
+            try {
+                if (socket != null) {
+                    socket.close();
+                }
+            } catch (Exception ex) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Tải file thất bại");
+            }
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Tải file thất bại");
+        }     
     }//GEN-LAST:event_btndownloadActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -255,7 +255,7 @@ public class frmDangKyUser extends javax.swing.JFrame {
                     System.out.print(path);
                     //Tag ra kết nối và thêm User vào CSDL
                     DBAccess acc=new DBAccess();
-                    String query="insert into taikhoan (username,password,Duongdan,quyen) values('"+username+"','"+password+"','" + path + "',"+quyen + ")";
+                    String query="insert into taikhoan (username,password,Duongdan,Quyentruyxuat) values('"+username+"','"+password+"','" + path + "',"+quyen + ")";
                     System.out.println(query);
                     if (acc.Update(query) > 0) {
                         JOptionPane.showMessageDialog(null, "Đăng ký thành công!");

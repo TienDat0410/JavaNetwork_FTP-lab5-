@@ -33,7 +33,7 @@ public class frmClient extends javax.swing.JFrame {
 
     Socket socket;
     String path;
-    public static final int PORT = 8888;
+    public static final int PORT = 1234;
 
     /**
      * Creates new form frmClient
@@ -325,33 +325,34 @@ public class frmClient extends javax.swing.JFrame {
         String cpath = path + "\\" + fileName;
         System.out.println(cpath);
         try {
-            PrintWriter out = new PrintWriter(socket.getOutputStream());
+            PrintWriter pw = new PrintWriter(socket.getOutputStream());
             //goi tin hieu lenh
-            out.println("UPLOAD");
-            out.flush();
+            pw.println("UPLOAD");
+            pw.flush();
             System.out.println("Da goi lenh upload len server");
-            out.println(fileName);
-            out.flush();
+            pw.println(fileName);
+            pw.flush();
             System.out.println("Da goi ten tap tin len server");
-            BufferedOutputStream read = new BufferedOutputStream(socket.getOutputStream());
-            DataOutputStream dout = new DataOutputStream(read);
+            BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
+            DataOutputStream dos = new DataOutputStream(bos);
             //mo tap tin ra
-            BufferedInputStream bin = new BufferedInputStream(new FileInputStream(cpath));
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(cpath));
             //lap doc noi dung tap tin va goi lieu len server
-            byte buf[] = new byte[bin.available()];    
-            // len server.
-            dout.write(bin.read(buf));
-            System.out.println("đã gọi dữ liệu tệp tin lên server");
-            dout.flush();
-            
+            byte buf[] = new byte[bis.available()];
+            //tao bo dem doc het du lieu tu tap tin vao bo dem roi day
+            //vao luong len server.
+            bos.write(bis.read(buf));
+            System.out.println("da goi du lieu tap tin len server");
+            bos.flush();
+            bis.close();///
             //doi nhan danh sach tap thu cua folder o server voi tinh trang moi
             Scanner sc = new Scanner(socket.getInputStream());
-            String cmd = sc.nextLine();
+            String cmd = sc.nextLine();//bug??????????????????????
             System.out.println("đã nhận đáp trả từ server");
             if (cmd.equals("DANHAN")) {
-                JOptionPane.showMessageDialog(null, "đã gửi tệp tin thành công" );
+                JOptionPane.showMessageDialog(null, "upload tệp tin thành công" );
             }else{
-                JOptionPane.showMessageDialog(null, "gửi tệp tin thất bại :((" );
+                JOptionPane.showMessageDialog(null, "upload tin thất bại :((" );
             }
             //nhan update
             updateFolderServer();
@@ -388,6 +389,7 @@ public class frmClient extends javax.swing.JFrame {
             pw = new PrintWriter(socket.getOutputStream());
             pw.println("DANHAN");
             pw.flush();
+            JOptionPane.showMessageDialog(null, "Dowload tệp tin thành công");
 //cap nhat lai thu muc client vua download
             this.capNhatClientFolder(cpath);
         } catch (Exception ex) {
